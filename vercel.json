@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "/api/main.py",
+      "src": "/server_action.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/videos(.*)",
-      "dest": "/api/main.py"
+      "src": "/manage(.*)",
+      "dest": "/server_action.py"
     }
   ]
 }

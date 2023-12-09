@@ -4,12 +4,20 @@
     {
       "src": "/server_action.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "/telegram_bot.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/manage(.*)",
       "dest": "/server_action.py"
+    },
+    {
+      "src": "/bot(.*)",
+      "dest": "/telegram_bot.py"
     }
   ]
 }

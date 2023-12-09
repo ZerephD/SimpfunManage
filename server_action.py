@@ -4,7 +4,7 @@ import config
 import json
 
 #个人信息
-user_id=config.userID
+user_id=config.ServerID
 auth=config.Authorization
 head={'Content-Type':'application/x-www-form-urlencoded','Authorization':auth}
 
@@ -12,45 +12,31 @@ head={'Content-Type':'application/x-www-form-urlencoded','Authorization':auth}
 get_info=f'https://api.simpfun.cn/api/ins/{user_id}/detail'
 change_state=f'https://api.simpfun.cn/api/ins/{user_id}/power'
 
+#获取服务器数据
+server_info=requests.get(get_info,headers=head)
+uptime=int(json.loads(server_info.text)['data']["utilization"]['uptime'])
+
+def send_command(action):
+    try:
+        changed = requests.get((change_state + f'?action={action}'), headers=head)
+        return json.loads(changed.text)
+    except:
+        return {'code': 201}
+
+def op_server(action):
+    if uptime==0:
+        server_open=False
+    else:
+        server_open=True
+    if (server_open and action=='stop') or ((not server_open) and action=='start') or (server_open and action=='restart'):
+        return send_command(action)
+    elif (server_open and action=='start') or ((not server_open) and action=='stop'):
+        return {'code': 202}
 app = Flask(__name__)
-@app.route('/manage', methods='GET')
+@app.route('/manage', methods=['GET'])
 def main():
     action=request.args.get('action')
-    server_info=requests.get(get_info,headers=head)
-    uptime=int(json.loads(server_info.text)['data']["utilization"]['uptime'])
-    if action == 'start':
-        if uptime == 0:
-            try:
-                changed=requests.get((change_state+'?action=start'),headers=head)
-                return changed.text
-            except:
-                return {'code':201}
-        else:
-            return {'code':202}
-    elif action == 'stop':
-        if uptime == 0:
-            return {'code':203}
-        else:
-            try:
-                changed = requests.get((change_state + '?action=stop'), headers=head)
-                return changed.text
-            except:
-                return {'code':201}
-    elif action == 'restart':
-        if uptime == 0:
-            try:
-                changed = requests.get((change_state + '?action=stop'), headers=head)
-                return changed.text
-            except:
-                return {'code': 201}
-        else:
-            try:
-                changed = requests.get((change_state + '?action=stop'), headers=head)
-                return changed.text
-            except:
-                return {'code':201}
-    else:
-        return {'code':201}
+    return  op_server(action)
 
 if __name__ == '__main__':
     app.run()

@@ -6,7 +6,7 @@ import server_action as op
 from flask import Flask, request, abort
 
 api_token = os.environ.get("BotToken")
-webhook_host = os.environ.get("VERCEL_URL")+'/bot'
+webhook_host = 'https://'+os.environ.get("VERCEL_URL")+'/bot'
 
 
 app = Flask(__name__)

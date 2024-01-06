@@ -28,7 +28,7 @@ def webhook():
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return '', 200
-@app.route('/bot', methods=['GET'])
+@app.route('/', methods=['GET'])
 def set():
     bot.set_webhook(url=webhook_host)
     return f'初始化成功，webhook地址为{webhook_host}，请向Bot发送信息测试是否部署成功'

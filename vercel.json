@@ -18,6 +18,10 @@
     {
       "src": "/bot(.*)",
       "dest": "/telegram_bot.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/telegram_bot.py"
     }
   ]
 }

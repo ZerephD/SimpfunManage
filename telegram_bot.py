@@ -1,12 +1,12 @@
 import json
 import requests
-import config
 import telebot
+import os
 import server_action as op
 from flask import Flask, request, abort
 
-api_token = config.BotToken
-webhook_host = config.Domain
+api_token = os.environ.get("BotToken")
+webhook_host = os.environ.get("VERCEL_URL")+'/bot'
 
 app = Flask(__name__)
 bot = telebot.TeleBot(api_token, threaded=False)
@@ -53,28 +53,31 @@ def restart(message):
 @bot.message_handler(commands=['info'])
 def info(message):
     bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请联系[开发者](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
-    server_info = requests.get(f'https://api.simpfun.cn/api/ins/{config.ServerID}/detail', headers=op.head)
-    server_info=json.loads(server_info.text)
-    if int(server_info['code'])==200:
-        data=server_info['data']
-        info_message=(f"服务器ID：`{config.ServerID}\n`"
-                      f"服务器名称：`{data['name']}\n`"
-                      f"服务器状态：`{data['status']}\n`"
-                      f"\n"
-                      f"实例类别：`{data['game_info']['game_name']}\n`"
-                      f"实例服务端：`{data['game_info']['kind_name']}\n`"
-                      f"实例版本(游戏版本)：`{data['game_info']['version_name']}\n`"
-                      f"\n"
-                      f"规格：\n"
-                      f"CPU：{data['cpu']}核\n"
-                      f"内存：{data['disk']}GB\n"
-                      f"存储：{data['ram']}GB\n"
-                      f"积分消耗：{data['point']}积分/日\n"
-                      f"服务器连接：`{data['allocations'][0]['ip']}:{data['allocations'][0]['port']}\n`")
-        bot.send_message(message.chat.id, info_message, parse_mode="Markdown")
+    for id in op.serverlist:
+        server_info = requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head)
+        server_info = json.loads(server_info.text)
+        if int(server_info['code']) == 200:
+            data = server_info['data']
+            info_message = (f"服务器ID：`{id}\n`"
+                            f"服务器名称：`{data['name']}\n`"
+                            f"服务器状态：`{data['status']}\n`"
+                            f"\n"
+                            f"实例类别：`{data['game_info']['game_name']}\n`"
+                            f"实例服务端：`{data['game_info']['kind_name']}\n`"
+                            f"实例版本(游戏版本)：`{data['game_info']['version_name']}\n`"
+                            f"\n"
+                            f"规格：\n"
+                            f"CPU：{data['cpu']}核\n"
+                            f"内存：{data['disk']}GB\n"
+                            f"存储：{data['ram']}GB\n"
+                            f"积分消耗：{data['point']}积分/日\n"
+                            f"服务器连接：`{data['allocations'][0]['ip']}:{data['allocations'][0]['port']}\n`")
+            bot.send_message(message.chat.id, info_message, parse_mode="Markdown")
 
-    else:
-        bot.send_message(message.chat.id, f'服务器ID: {config.ServerID} 信息获取失败\n请联系[开发者](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
+        else:
+            bot.send_message(message.chat.id,
+                             f'服务器ID: {id} 信息获取失败\n请联系[开发者](https://t.me/Zereph_Dandre)',
+                             parse_mode="Markdown")
 
 
 if __name__=='__main__':

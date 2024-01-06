@@ -26,6 +26,10 @@ def return_massage(text,command,message):
 def webhook():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "√", 200
+@app.route('/bot', methods=['GET'])
+def set():
+    bot.setWebhook(url=webhook_host)
+    return '初始化成功，请向Bot发送信息测试是否部署成功'
 
 #欢迎
 @bot.message_handler(commands=['start'])

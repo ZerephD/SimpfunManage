@@ -24,8 +24,10 @@ def return_massage(text,command,message):
 
 @app.route('/bot', methods=['POST'])
 def webhook():
-    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-    return "√", 200
+    json_str = request.get_data().decode('UTF-8')
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return '', 200
 @app.route('/bot', methods=['GET'])
 def set():
     bot.set_webhook(url=webhook_host)

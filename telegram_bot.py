@@ -28,7 +28,7 @@ def webhook():
     return "√", 200
 @app.route('/bot', methods=['GET'])
 def set():
-    bot.setWebhook(url=webhook_host)
+    bot.set_webhook(url=webhook_host)
     return '初始化成功，请向Bot发送信息测试是否部署成功'
 
 #欢迎

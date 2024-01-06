@@ -8,6 +8,7 @@ from flask import Flask, request, abort
 api_token = os.environ.get("BotToken")
 webhook_host = os.environ.get("VERCEL_URL")+'/bot'
 
+
 app = Flask(__name__)
 bot = telebot.TeleBot(api_token, threaded=False)
 
@@ -54,8 +55,8 @@ def restart(message):
 def info(message):
     bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请联系[开发者](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
     for id in op.serverlist:
-        server_info = requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head)
-        server_info = json.loads(server_info.text)
+        id=id['id']
+        server_info = json.loads(requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head).text)
         if int(server_info['code']) == 200:
             data = server_info['data']
             info_message = (f"服务器ID：`{id}\n`"

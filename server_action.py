@@ -9,13 +9,9 @@ passwd = os.environ.get("PassWord")
 try:
     auth = os.environ.get('Token')
     if auth == None or auth == '':
-        auth = json.loads(
-            requests.post('https://api.simpfun.cn/api/auth/login', data={'username': name, 'passwd': passwd}).text)[
-            'token']
+        auth = json.loads(requests.post('https://api.simpfun.cn/api/auth/login', data={'username': name, 'passwd': passwd}).text)['token']
 except:
-    auth = \
-    json.loads(requests.post('https://api.simpfun.cn/api/auth/login', data={'username': name, 'passwd': passwd}).text)[
-        'token']
+    auth = json.loads(requests.post('https://api.simpfun.cn/api/auth/login', data={'username': name, 'passwd': passwd}).text)['token']
 head = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': auth}
 serverlist = json.loads(requests.get('https://api.simpfun.cn/api/ins/list?', headers=head).text)['list']
 

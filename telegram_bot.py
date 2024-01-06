@@ -3,11 +3,9 @@ import requests
 import telebot
 import os
 import server_action as op
-from flask import Flask, request, abort
+from flask import Flask, request
 
 api_token = os.environ.get("BotToken")
-webhook_host = 'https://'+os.environ.get("VERCEL_URL")+'/bot'
-
 
 app = Flask(__name__)
 bot = telebot.TeleBot(api_token, threaded=False)
@@ -30,6 +28,7 @@ def webhook():
     return '', 200
 @app.route('/', methods=['GET'])
 def set():
+    webhook_host=request.url+'bot'
     bot.set_webhook(url=webhook_host)
     return f'初始化成功，webhook地址为{webhook_host}，请向Bot发送信息测试是否部署成功'
 

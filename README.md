@@ -7,7 +7,7 @@
 ## 简述
 适用平台：[简幻欢v4](https://simpfun.cn/)
 
-版本：1.1.0
+版本：1.1.1
 
 有疑问联系：[Zereph](https://t.me/Zereph_Dandre)
 

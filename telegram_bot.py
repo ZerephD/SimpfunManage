@@ -26,7 +26,7 @@ def webhook():
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return '', 200
-@app.route('/', methods=['GET'])
+@app.route('/ini', methods=['GET'])
 def set():
     webhook_host=request.url+'bot'
     bot.set_webhook(url=webhook_host)
@@ -35,7 +35,7 @@ def set():
 #欢迎
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, '欢迎使用简幻欢MC服务器管理机器人\n\n当前版本1.1.0\t[检查更新](https://github.com/ZerephD/SimpfunManage)\n\n作者：@Zereph_Dandre', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'欢迎使用简幻欢MC服务器管理机器人\n\n当前版本1.1.0\t[检查更新](https://github.com/ZerephD/SimpfunManage)\n\n作者：@Zereph_Dandre', parse_mode="Markdown")
 
 #开启服务器
 @bot.message_handler(commands=['sstart'])
@@ -58,7 +58,7 @@ def restart(message):
 #服务器信息
 @bot.message_handler(commands=['info'])
 def info(message):
-    bot.send_message(message.chat.id, '正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请到Github反馈', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请到Github反馈', parse_mode="Markdown")
     for id in op.serverlist:
         id=id['id']
         server_info = json.loads(requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head).text)

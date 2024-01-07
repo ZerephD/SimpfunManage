@@ -20,7 +20,7 @@
       "dest": "/telegram_bot.py"
     },
     {
-      "src": "/(.*)",
+      "src": "/ini(.*)",
       "dest": "/telegram_bot.py"
     }
   ]

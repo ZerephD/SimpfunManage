@@ -35,7 +35,7 @@ def set():
 #欢迎
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, f'欢迎使用简幻欢MC服务器管理机器人\n\n当前版本`1.1.1`\t（[检查更新](https://github.com/ZerephD/SimpfunManage)）\t（[作者](https://t.me/Zereph_Dandre)）', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'欢迎使用简幻欢MC服务器管理机器人\n\n当前版本`1.1.1`\t[（检查更新）](https://github.com/ZerephD/SimpfunManage)\t[（作者）](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
 
 #帮助
 @bot.message_handler(commands=['start'])

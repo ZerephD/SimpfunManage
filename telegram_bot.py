@@ -28,7 +28,7 @@ def webhook():
     return '', 200
 @app.route('/ini', methods=['GET'])
 def set():
-    webhook_host=request.url+'bot'
+    webhook_host=request.url.strip('ini')+'bot'
     bot.set_webhook(url=webhook_host)
     return f'初始化成功，webhook地址为{webhook_host}，请向Bot发送信息测试是否部署成功'
 

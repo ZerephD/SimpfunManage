@@ -58,7 +58,7 @@ def restart(message):
 #服务器信息
 @bot.message_handler(commands=['info'])
 def info(message):
-    bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请联系作者：@Zereph_Dandre', parse_mode="Markdown")
+    bot.send_message(message.chat.id, '正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请联系作者：@Zereph_Dandre', parse_mode="Markdown")
     for id in op.serverlist:
         id=id['id']
         server_info = json.loads(requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head).text)

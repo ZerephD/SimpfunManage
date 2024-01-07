@@ -11,12 +11,12 @@ app = Flask(__name__)
 bot = telebot.TeleBot(api_token, threaded=False)
 
 def return_massage(text,command,message):
-    bot.send_message(message.chat.id, f'服务器正在{text}中，请稍候……\n\n如超过10秒未响应请到Github反馈', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'服务器正在{text}中，请稍候……\n\n如超过10秒未响应请检查运行状态', parse_mode="Markdown")
     code = int(op.op_server(command)['code'])
     if code == 200:
         bot.send_message(message.chat.id, f'服务器{text}成功！', parse_mode="Markdown")
     elif code == 201:
-        bot.send_message(message.chat.id, f'未知错误，操作失败，请到Github反馈！', parse_mode="Markdown")
+        bot.send_message(message.chat.id, f'未知错误，操作失败，请检查运行状态！', parse_mode="Markdown")
     elif code == 202:
         bot.send_message(message.chat.id, f'服务器正处于{text}状态，请勿重复{text}！', parse_mode="Markdown")
 
@@ -41,11 +41,11 @@ def send_welcome(message):
 @bot.message_handler(commands=['help'])
 def send_welcome(message):
     commands_help=f"以下是当前支持的命令：\n" \
-                  f"/start\t\t欢迎语及版本信息\n" \
-                  f"/info\t\t获取账号绑定的所有服务器的信息\n" \
-                  f"/sstart\t\t服务器开机(默认为第一个)\n" \
-                  f"/restart\t\t服务器重启(默认为第一个)\n" \
-                  f"/stop\t\t服务器关机(默认为第一个)\n\n" \
+                  f"/start   - 欢迎语及版本信息\n" \
+                  f"/info    - 获取账号绑定的所有服务器的信息\n" \
+                  f"/sstart  - 服务器开机(默认为第一个)\n" \
+                  f"/restart - 服务器重启(默认为第一个)\n" \
+                  f"/stop    - 服务器关机(默认为第一个)\n\n" \
                   f"项目地址： https://github.com/ZerephD/SimpfunManage\n" \
                   f"欢迎反馈，共建一个完善的服务器管理工具😘"
     bot.send_message(message.chat.id, commands_help, parse_mode="Markdown")
@@ -71,7 +71,7 @@ def restart(message):
 #服务器信息
 @bot.message_handler(commands=['info'])
 def info(message):
-    bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请到Github反馈', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请检查运行状态', parse_mode="Markdown")
     for id in op.serverlist:
         id=id['id']
         server_info = json.loads(requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head).text)
@@ -95,7 +95,7 @@ def info(message):
 
         else:
             bot.send_message(message.chat.id,
-                             f'服务器ID: {id} 信息获取失败\n请到Github反馈',
+                             f'服务器ID: {id} 信息获取失败\n请检查运行状态',
                              parse_mode="Markdown")
 
 

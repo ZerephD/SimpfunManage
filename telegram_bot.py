@@ -11,12 +11,12 @@ app = Flask(__name__)
 bot = telebot.TeleBot(api_token, threaded=False)
 
 def return_massage(text,command,message):
-    bot.send_message(message.chat.id, f'服务器正在{text}中，请稍候……\n\n如超过10秒未响应请联系[开发者](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'服务器正在{text}中，请稍候……\n\n如超过10秒未响应请联系作者：@Zereph_Dandre', parse_mode="Markdown")
     code = int(op.op_server(command)['code'])
     if code == 200:
         bot.send_message(message.chat.id, f'服务器{text}成功！', parse_mode="Markdown")
     elif code == 201:
-        bot.send_message(message.chat.id, f'未知错误，操作失败，请联系[开发者](https://t.me/Zereph_Dandre)！', parse_mode="Markdown")
+        bot.send_message(message.chat.id, f'未知错误，操作失败，请联系作者：@Zereph_Dandre！', parse_mode="Markdown")
     elif code == 202:
         bot.send_message(message.chat.id, f'服务器正处于{text}状态，请勿重复{text}！', parse_mode="Markdown")
 
@@ -35,7 +35,7 @@ def set():
 #欢迎
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, '欢迎使用简幻欢MC服务器管理机器人', parse_mode="Markdown")
+    bot.send_message(message.chat.id, '欢迎使用简幻欢MC服务器管理机器人\n\n当前版本1.1.0\t[检查更新](https://github.com/ZerephD/SimpfunManage)\n\n作者 @Zereph_Dandre', parse_mode="Markdown")
 
 #开启服务器
 @bot.message_handler(commands=['sstart'])
@@ -58,7 +58,7 @@ def restart(message):
 #服务器信息
 @bot.message_handler(commands=['info'])
 def info(message):
-    bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请联系[开发者](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'正在获取服务器信息中，请稍候……\n\n如超过10秒未响应请联系作者：@Zereph_Dandre', parse_mode="Markdown")
     for id in op.serverlist:
         id=id['id']
         server_info = json.loads(requests.get(f'https://api.simpfun.cn/api/ins/{id}/detail', headers=op.head).text)
@@ -82,7 +82,7 @@ def info(message):
 
         else:
             bot.send_message(message.chat.id,
-                             f'服务器ID: {id} 信息获取失败\n请联系[开发者](https://t.me/Zereph_Dandre)',
+                             f'服务器ID: {id} 信息获取失败\n请联系作者：@Zereph_Dandre',
                              parse_mode="Markdown")
 
 

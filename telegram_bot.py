@@ -35,7 +35,20 @@ def set():
 #欢迎
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, f'欢迎使用简幻欢MC服务器管理机器人\n\n当前版本1.1.0\t[检查更新](https://github.com/ZerephD/SimpfunManage)\n\n[作者](https://t.me/Zereph_Dandre)', parse_mode="Markdown")
+    bot.send_message(message.chat.id, f'欢迎使用简幻欢MC服务器管理机器人\n\n当前版本`1.1.1`\t（[检查更新](https://github.com/ZerephD/SimpfunManage)）\t（[作者](https://t.me/Zereph_Dandre)）', parse_mode="Markdown")
+
+#帮助
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    commands_help=f"以下是当前支持的命令：\n" \
+                  f"/start\t\t欢迎语及版本信息\n" \
+                  f"/info\t\t获取账号绑定的所有服务器的信息\n" \
+                  f"/sstart\t\t服务器开机(默认为第一个)\n" \
+                  f"/restart\t\t服务器重启(默认为第一个)\n" \
+                  f"/stop\t\t服务器关机(默认为第一个)\n\n" \
+                  f"项目地址： https://github.com/ZerephD/SimpfunManage\n" \
+                  f"欢迎反馈，共建一个完善的服务器管理工具😘"
+    bot.send_message(message.chat.id, commands_help, parse_mode="Markdown")
 
 #开启服务器
 @bot.message_handler(commands=['sstart'])

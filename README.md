@@ -11,7 +11,7 @@
 
 有疑问联系：[Zereph](https://t.me/Zereph_Dandre)
 
-## 使用
+## 使用：
 ### 一键部署：
 
 [![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/ZerephD/SimpfunManage)
@@ -34,6 +34,19 @@ Token在`2024.1.6`更新中已移除，如需获取方式请[联系我](https://
 
 ***注意！：请尽量用你自己的域名，Vercel的域名在POST请求时会有验证导致TG的Webhook失效***
 
+然后就可以在bot中发送help查看支持的命令了~
+
 ## 更新日志： 
 - 2024.1.6 支持Token自动获取，信息配置方式改为Vercel环境变量 
 - 2024.1.6 Telegram机器人webhook链接自动设置
+
+## 更新计划：
+- [ ] 支持绑定多账号
+- [ ] 支持选择特定服务器开机
+- [ ] 支持数据库式存储信息
+- [ ] 制作一个所有人都能自助使用的公共机器人，免于自行部署
+- [ ] 支持用作终端或控制台特定输出的提醒及输入指令同步控制台输入
+- [ ] ~~支持自动签到~~(官方不让)
+
+## 最后：
+**我今年中考要复习复习，可能平时对于这个项目维护不及时，希望能谅解一下🥺**

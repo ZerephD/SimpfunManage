@@ -2,7 +2,7 @@
 
 ---
 
-**详细教程可以到我的[ 博客 ](https://blog.zereph.online/archives/1702112813409)去阅读**
+**详细教程可以到[~~我的博客~~](https://blog.zereph.online/archives/1702112813409)去阅读(目前暂时失效)**
 
 ## 简述
 适用平台：[简幻欢v4](https://simpfun.cn/)
@@ -10,6 +10,8 @@
 版本：1.1.1
 
 有疑问联系：[Zereph](https://t.me/Zereph_Dandre)
+
+有会 **JS / 微信小程序** 并想一起完善项目的请联系我 [QQ: 672384313](https://qm.qq.com/q/PPX4U2vTeo)
 
 ## 使用：
 ### 一键部署：
@@ -30,7 +32,7 @@
 Token在`2024.1.6`更新中已移除，如需获取方式请[联系我](https://t.me/Zereph_Dandre)
 
 ### 初始化:
-访问 `http://你的域名/ini` ，等待返回数据(时间可能稍长)
+访问 `http://你的域名/ini` ，等待返回数据(时间可能稍长,但不会超过10s)
 
 ***注意！：请尽量用你自己的域名，Vercel的域名在POST请求时会有验证导致TG的Webhook失效***
 

@@ -48,7 +48,10 @@ app = Flask(__name__)
 @app.route('/manage', methods=['GET'])
 def main():
     action = request.args.get('action')
-    num = requests.args.get('number')
+    try:
+        num = int(request.args.get('number'))
+    except:
+        num=0
     return op_server(action, num)
 
 
